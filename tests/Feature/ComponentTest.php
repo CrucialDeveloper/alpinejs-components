@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Component;
 use Tests\TestCase;
 use Illuminate\Support\Str;
@@ -106,5 +107,24 @@ class ComponentTest extends TestCase
         $this->assertDatabaseHas('components', [
             'summary' => $component['summary']
         ]);
+    }
+
+
+    /**
+     * @test
+     */
+    public function non_owners_of_a_component_cannot_update_it()
+    {
+
+        $user1 = $this->create(User::class);
+        $component = $this->create(Component::class, ['user_id' => $user1->id, 'summary' => 'Created By Owner', 'slug' => 'created-by-owner']);
+
+        $user2 = $this->signIn();
+        $component->summary = "Update by stranger";
+
+        $response = $this->actingAs($user2)->patch("/components/$component->slug", $component->toArray());
+
+        $this->assertDatabaseHas('components', ['summary' => 'Created By Owner']);
+        $this->assertCount(1, Component::all());
     }
 }

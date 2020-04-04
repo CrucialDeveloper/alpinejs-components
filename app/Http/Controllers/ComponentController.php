@@ -20,6 +20,9 @@ class ComponentController extends Controller
 
     public function update(Request $request, Component $component)
     {
+        $this->authorize('update', $component);
+
+        $this->validateRequest($request);
         $component->fill($request->all());
         $component->slug = Str::slug($request->summary);
 
