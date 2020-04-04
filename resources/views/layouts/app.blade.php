@@ -32,7 +32,7 @@
                             {{ config('app.name', 'Laravel') }}
                         </a>
                     </div>
-                    <div class="flex-1 text-right">
+                    <div class="flex items-center justify-end flex-1 text-right">
                         @guest
                         <a class="p-3 text-sm text-white no-underline hover:underline"
                             href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -41,7 +41,8 @@
                             href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                         @else
-                        <span class="pr-4 text-sm text-white">{{ Auth::user()->name }}</span>
+                        <span
+                            class="flex items-center justify-center w-8 h-8 text-sm text-white bg-gray-900 rounded-full">{{ auth()->user()->first_name[0] }}{{auth()->user()->last_name[0]}}</span>
 
                         <a href="{{ route('logout') }}"
                             class="p-3 text-sm text-white no-underline hover:underline"
