@@ -22,3 +22,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::post('/components', 'ComponentController@store')->middleware('verified', 'auth');
+Route::patch('/components/{component:slug}', 'ComponentController@update')->middleware('verified', 'auth');
