@@ -8,8 +8,8 @@ use App\Component as AlpineComponent;
 
 class HomeSearch extends Component
 {
-    public $allComponents;
-    public $sortedComponents;
+    public $allComponents = [];
+    public $sortedComponents = [];
     public $search;
     public $activeCategories = [];
     public $activeTags = [];
@@ -17,40 +17,23 @@ class HomeSearch extends Component
     public function mount()
     {
         $this->allComponents = AlpineComponent::all();
+        $this->sortedComponents = $this->allComponents;
     }
 
     public function render()
     {
         $facets = $this->allComponents->pluck('category')->countBy()->sort();
-        $components = $this->sortedComponents && $this->sortedComponents->count() > 0 ? $this->sortedComponents : $this->allComponents;
+
         return view('livewire.home-search', [
             'facets' => $facets,
             'activeCategories' => $this->activeCategories,
-            'components' => $components
+            'components' => $this->sortedComponents
         ]);
     }
 
     public function updatedSearch()
     {
         $this->searchComponents();
-    }
-
-
-    public function searchComponents()
-    {
-        $this->sortedComponents = $this->allComponents;
-
-        if ($this->search) {
-            $this->sortedComponents = $this->sortedComponents->filter(function ($item) {
-                return Str::of($item->summary)->lower()->contains(Str::of($this->search)->lower());
-            });
-        }
-
-        if (count($this->activeCategories) > 0) {
-            $this->sortedComponents =  $this->sortedComponents->filter(function ($item) {
-                return in_array($item->category, $this->activeCategories);
-            });
-        }
     }
 
     public function updateActiveCategories($category)
@@ -65,5 +48,24 @@ class HomeSearch extends Component
             $this->activeCategories = $categories->push($category)->toArray();
         }
         $this->searchComponents();
+    }
+
+    public function searchComponents()
+    {
+        $this->sortedComponents = $this->allComponents;
+        if (!Str::of($this->search)->isEmpty()) {
+            $this->sortedComponents = $this->sortedComponents->filter(function ($item) {
+                return Str::of($item->summary)->lower()->contains(Str::of($this->search)->lower()) ||
+                    Str::of($item->description)->lower()->contains(Str::of($this->search)->lower());
+            });
+        } else {
+            $this->sortedComponents = $this->allComponents;
+        }
+
+        if (count($this->activeCategories) > 0) {
+            $this->sortedComponents =  $this->sortedComponents->filter(function ($item) {
+                return in_array($item->category, $this->activeCategories);
+            });
+        }
     }
 }

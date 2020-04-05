@@ -1,7 +1,7 @@
 <div class="container mx-auto">
     <div class="flex items-start">
-        <div class="mr-8">
-            <div class="flex items-center">
+        <div class="{{$components->count() ===0 ? 'mr-auto w-full' : 'mr-8'}}">
+            <div class="flex items-center {{$components->count() ===0 ? 'mr-8' : ''}}">
                 <input type="text"
                     class="w-full p-2 rounded-l"
                     placeholder="Search Components ..."
@@ -9,8 +9,14 @@
                 <button class="h-full p-2 bg-gray-200 rounded-r hover:bg-gray-300"
                     wire:click="$set('search','')">X</button>
             </div>
-            <div class="flex">
-                <div class="relative">
+            <div class="flex flex-1">
+                <div class="relative w-full {{$components->count() ===0 ? 'mr-8' : ''}}">
+                    @if($components->count() ===0)
+                    <div
+                        class="min-w-full p-4 mt-8 bg-white border-4 border-transparent rounded shadow-md hover:border-blue-800">
+                        No components found, try a different search!
+                    </div>
+                    @endif
                     @foreach ($components as $component)
                     <div
                         class="w-full p-4 mt-8 bg-white border-4 border-transparent rounded shadow-md hover:border-blue-800">
@@ -64,4 +70,5 @@
             @endforeach
         </div>
     </div>
+
 </div>
