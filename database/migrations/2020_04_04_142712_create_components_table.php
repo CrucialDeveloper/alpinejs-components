@@ -19,6 +19,7 @@ class CreateComponentsTable extends Migration
             $table->string('summary');
             $table->text('description');
             $table->mediumText('code');
+            $table->string('category');
             $table->string('slug');
             $table->timestamps();
         });

@@ -23,7 +23,7 @@
 
 <body class="h-screen antialiased leading-none bg-gray-100">
     <div id="app">
-        <nav class="py-6 mb-8 bg-blue-900 shadow">
+        <nav class="py-6 mb-8 bg-blue-700 shadow">
             <div class="container px-6 mx-auto md:px-0">
                 <div class="flex items-center justify-center">
                     <div class="mr-6">

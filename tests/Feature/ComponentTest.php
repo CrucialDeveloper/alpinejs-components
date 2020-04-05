@@ -28,6 +28,7 @@ class ComponentTest extends TestCase
             'summary' => $summary,
             'description' => 'Showing off some code',
             'code' => '<h1>Hello World</h1>',
+            'category' => 'Navigation',
             'slug' => Str::slug($summary)
         ]);
 
@@ -36,6 +37,7 @@ class ComponentTest extends TestCase
             'summary' => 'First Component',
             'description' => 'Showing off some code',
             'code' => '<h1>Hello World</h1>',
+            'category' => 'Navigation',
             'slug' => 'first-component'
         ]);
     }

@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Mexitek\PHPColors\Color;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -37,8 +38,20 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['background_color'];
+
     public function components()
     {
         return $this->hasMany(Component::class);
+    }
+
+    public function getBackgroundColorAttribute()
+    {
+        $c = substr(md5($this->first_name . $this->last_name), 2, 6);
+        while ((new Color($c))->isLight()) {
+            $c = (new Color($c))->darken(10);
+        }
+
+        return '#' . $c;
     }
 }

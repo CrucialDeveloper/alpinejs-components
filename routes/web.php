@@ -16,11 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/', 'HomeController@index');
 Route::post('/components', 'ComponentController@store')->middleware('verified', 'auth');
 Route::patch('/components/{component:slug}', 'ComponentController@update')->middleware('verified', 'auth');
