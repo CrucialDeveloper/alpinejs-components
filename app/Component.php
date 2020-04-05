@@ -12,11 +12,4 @@ class Component extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    public static function search($query)
-    {
-        return empty($query) ? static::query()
-            : static::where('summary', 'like', '%' . $query . '%')
-            ->orWhere('description', 'like', '%' . $query . '%');
-    }
 }
