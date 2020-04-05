@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}"
         rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body class="h-screen antialiased leading-none bg-gray-100">
@@ -62,6 +63,8 @@
 
         @yield('content')
     </div>
+
+    @livewireScripts
 </body>
 
 </html>
