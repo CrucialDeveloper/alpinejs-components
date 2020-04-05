@@ -4,6 +4,7 @@
 
 use App\User;
 use App\Component;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -14,7 +15,8 @@ $factory->define(Component::class, function (Faker $faker) {
         'summary' => $summary,
         'description' => $faker->paragraph(5),
         'code' => '<h1>Hello World</h1>',
-        'category' => $faker->randomElement(['Navigation', 'Input', 'UI']),
+        'category' => $faker->randomElement(['Navigation', 'Inputs', 'UI']),
+        'approved_at' => $faker->boolean ? Carbon::yesterday() : null,
         'slug' => Str::slug($summary)
     ];
 });

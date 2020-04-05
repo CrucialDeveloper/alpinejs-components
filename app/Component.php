@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Component extends Model
 {
-    protected $fillable = ['summary', 'description', 'code', 'slug', 'category'];
+    protected $fillable = ['summary', 'description', 'code', 'slug', 'category', 'approved_at'];
 
     public function creator()
     {

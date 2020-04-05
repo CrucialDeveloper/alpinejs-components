@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Component;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,6 +30,7 @@ class ComponentTest extends TestCase
             'description' => 'Showing off some code',
             'code' => '<h1>Hello World</h1>',
             'category' => 'Navigation',
+            'approved_at' => Carbon::yesterday(),
             'slug' => Str::slug($summary)
         ]);
 
@@ -38,6 +40,7 @@ class ComponentTest extends TestCase
             'description' => 'Showing off some code',
             'code' => '<h1>Hello World</h1>',
             'category' => 'Navigation',
+            'approved_at' => Carbon::yesterday(),
             'slug' => 'first-component'
         ]);
     }
@@ -52,7 +55,7 @@ class ComponentTest extends TestCase
         $first = $this->create(Component::class, [
             'user_id' => $user->id,
             'summary' => 'First Component',
-            'slug' => 'first-component'
+            'slug' => 'first-component',
         ]);
 
         $second = $this->raw(Component::class, ['user_id' => 1, 'summary' => 'First Component']);

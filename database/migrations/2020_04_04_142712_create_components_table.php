@@ -20,6 +20,7 @@ class CreateComponentsTable extends Migration
             $table->text('description');
             $table->mediumText('code');
             $table->string('category');
+            $table->dateTime('approved_at')->nullable();
             $table->string('slug');
             $table->timestamps();
         });
