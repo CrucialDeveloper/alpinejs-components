@@ -40,4 +40,13 @@ class ComponentPolicy
     {
         return $user->id == $component->user_id;
     }
+
+    public function preview(?User $user, Component $component)
+    {
+        if (is_null($component->approved_at)) {
+            return false;
+        }
+
+        return true;
+    }
 }

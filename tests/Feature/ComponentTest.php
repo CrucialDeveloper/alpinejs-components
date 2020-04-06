@@ -132,4 +132,47 @@ class ComponentTest extends TestCase
         $this->assertDatabaseHas('components', ['summary' => 'Created By Owner']);
         $this->assertCount(1, Component::all());
     }
+
+    /**
+     * @test
+     */
+    public function an_approved_component_preview_can_be_viewed()
+    {
+        $this->withoutExceptionHandling();
+
+        $component = $this->create(Component::class, ['approved_at' => Carbon::yesterday()]);
+
+        $response = $this->get("/components/$component->slug/preview");
+
+        $response->assertOk();
+    }
+
+    /**
+     * @test
+     */
+    public function unapproved_components_cannot_be_previewed_by_unauthorized_users()
+    {
+        $component = $this->create(Component::class, [
+            'approved_at' => null
+        ]);
+
+        $response = $this->get("/components/$component->slug/preview");
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * @test
+     */
+    public function unapproved_components_can_only_be_previewed_by_authorized_users()
+    {
+        $this->signIn(['role' => 'admin']);
+        $component = $this->create(Component::class, [
+            'approved_at' => null
+        ]);
+
+        $response = $this->get("/components/$component->slug/preview");
+
+        $response->assertStatus(200);
+    }
 }

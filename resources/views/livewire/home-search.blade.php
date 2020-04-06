@@ -40,10 +40,10 @@
 
                             <div class="flex items-center">
                                 @if($component->approved_at)
-                                <button
+                                <a href="/components/{{$component->slug}}/preview"
                                     class="px-4 py-2 mr-4 border border-blue-700 rounded hover:bg-blue-700 hover:text-white">
                                     View Preview
-                                </button>
+                                </a>
                                 @else
                                 <div class="px-4 py-2 mr-4 bg-gray-200 border border-blue-700 rounded">
                                     View Preview (Pending)
