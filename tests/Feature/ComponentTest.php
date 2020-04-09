@@ -140,9 +140,11 @@ class ComponentTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->create(User::class);
+
         $component = $this->create(Component::class, ['approved_at' => Carbon::yesterday()]);
 
-        $response = $this->get("/components/$component->slug/preview");
+        $response = $this->get("/components/$component->slug");
 
         $response->assertOk();
     }
@@ -156,7 +158,7 @@ class ComponentTest extends TestCase
             'approved_at' => null
         ]);
 
-        $response = $this->get("/components/$component->slug/preview");
+        $response = $this->get("/components/$component->slug");
 
         $response->assertStatus(403);
     }
@@ -166,12 +168,14 @@ class ComponentTest extends TestCase
      */
     public function unapproved_components_can_only_be_previewed_by_authorized_users()
     {
+        $this->withoutExceptionHandling();
+
         $this->signIn(['role' => 'admin']);
         $component = $this->create(Component::class, [
             'approved_at' => null
         ]);
 
-        $response = $this->get("/components/$component->slug/preview");
+        $response = $this->get("/components/$component->slug");
 
         $response->assertStatus(200);
     }

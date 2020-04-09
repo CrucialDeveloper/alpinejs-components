@@ -4,10 +4,10 @@
 <div class="container min-h-screen mx-auto bg-white">
     <div class="p-8">
         <h2 class="text-2xl">{{$component->summary}}</h2>
-        <p class="mt-2 text-sm">Submitted by {{$component->creator->first_name}}
+        <p class="mt-2 text-sm text-gray-700">Submitted by {{$component->creator->first_name}}
             {{$component->creator->last_name}}
-            {{$component->approved_at->diffForHumans()}}</p>
-        <p class="mt-4 leading-5">{{$component->description}}</p>
+            {{$component->approved_at ? $component->approved_at->diffForHumans() : "Not Approved"}}</p>
+        <p class="mt-4 leading-5 text-gray-700">{{$component->description}}</p>
         <div class="bg-gray-200 h-xl">
             <div class="relative max-w-full p-4 mt-8 overflow-scroll border resize-x resizer h-xl min-w-xs">
                 <iframe class="absolute top-0 left-0 w-full h-full"

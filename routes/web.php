@@ -20,4 +20,4 @@ Route::get('/', 'HomeController@index');
 Route::post('/components', 'ComponentController@store')->middleware('verified', 'auth');
 Route::patch('/components/{component:slug}', 'ComponentController@update')->middleware('verified', 'auth');
 
-Route::get('/components/{component:slug}/preview', 'ComponentPreviewController@show');
+Route::get('/components/{component:slug}', 'ComponentPreviewController@show');
