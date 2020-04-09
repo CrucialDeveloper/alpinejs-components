@@ -27,7 +27,7 @@
                         <div class="mt-4 text-sm ">
                             {{$component->description}}
                         </div>
-                        <div class="flex items-center justify-between mt-4 ">
+                        <div class="flex items-center justify-between mt-4">
                             <div class="flex items-center mr-4 ">
                                 <div class="flex items-center justify-center w-8 h-8 mr-4 text-white rounded-full "
                                     style="
@@ -40,7 +40,7 @@
 
                             <div class="flex items-center">
                                 @if($component->approved_at)
-                                <a href="/components/{{$component->slug}}/preview"
+                                <a href="/components/{{$component->slug}}#preview"
                                     class="px-4 py-2 mr-4 border border-blue-700 rounded hover:bg-blue-700 hover:text-white">
                                     View Preview
                                 </a>
@@ -50,10 +50,10 @@
                                 </div>
                                 @endif
 
-                                <button
+                                <a href="/components/{{$component->slug}}#code"
                                     class="px-4 py-2 border border-blue-700 rounded hover:bg-blue-700 hover:text-white">
                                     View Code
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

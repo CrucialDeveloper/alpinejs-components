@@ -20,6 +20,7 @@
     <link href="{{ mix('css/app.css') }}"
         rel="stylesheet">
     @livewireStyles
+    @stack('head')
 </head>
 
 <body class="h-screen antialiased leading-none text-gray-900 bg-gray-100">
@@ -65,6 +66,7 @@
     </div>
 
     @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>
