@@ -16,6 +16,8 @@ class ComponentPreviewController extends Controller
     public function show(Request $request, Component $component)
     {
         $this->authorize('preview', $component);
-        return view('alpine-components.show');
+        return view('alpine-components.show', [
+            'component' => $component->load('creator')
+        ]);
     }
 }
