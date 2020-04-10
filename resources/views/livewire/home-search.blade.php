@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<div class="container py-8 mx-auto">
     <div class="flex items-start">
         <div class="{{$components->count() ===0 ? 'mr-auto w-full' : 'mr-8'}}">
             <div class="flex items-center {{$components->count() ===0 ? 'mr-8' : ''}}">

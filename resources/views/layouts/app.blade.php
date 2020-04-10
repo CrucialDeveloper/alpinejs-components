@@ -24,7 +24,8 @@
 </head>
 
 <body class="h-screen antialiased leading-none text-gray-900 bg-gray-100">
-    <div id="app">
+    <div id="app"
+        class="h-full">
         <nav class="py-4 bg-blue-700 shadow">
             <div class="container px-6 mx-auto md:px-0">
                 <div class="flex items-center justify-center">

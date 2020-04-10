@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mt-8">
+<div>
     @livewire('home-search')
-
 </div>
 @endsection
