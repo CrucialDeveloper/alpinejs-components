@@ -29,6 +29,8 @@ class ComponentController extends Controller
         $component->approved_at = Carbon::now();
 
         auth()->user()->components()->save($component);
+
+        return redirect("/components/$component->slug");
     }
 
     /**

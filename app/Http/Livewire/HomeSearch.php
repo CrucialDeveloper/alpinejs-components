@@ -16,7 +16,7 @@ class HomeSearch extends Component
 
     public function mount()
     {
-        $this->allComponents = AlpineComponent::all();
+        $this->allComponents = AlpineComponent::latest()->get();
         $this->sortedComponents = $this->allComponents;
     }
 
@@ -63,7 +63,7 @@ class HomeSearch extends Component
         }
 
         if (count($this->activeCategories) > 0) {
-            $this->sortedComponents =  $this->sortedComponents->filter(function ($item) {
+            $this->sortedComponents = $this->sortedComponents->filter(function ($item) {
                 return in_array($item->category, $this->activeCategories);
             });
         }
