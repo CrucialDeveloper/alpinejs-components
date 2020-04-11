@@ -11,6 +11,12 @@ use Illuminate\View\View;
 
 class ComponentController extends Controller
 {
+    public function create()
+    {
+        return view('alpine-components.create');
+    }
+
+
     /**
      * @param Request $request
      */

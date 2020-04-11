@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\User;
 use App\Component;
 use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\This;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -195,5 +196,19 @@ class ComponentTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('alpine-components.edit');
         $response->assertViewHas('component');
+    }
+
+    /**
+     * @test
+     */
+    public function a_component_is_created_on_a_create_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->get('/components/create');
+
+        $response->assertStatus(200);
+
+        $response->assertViewIs('alpine-components.create');
     }
 }
