@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.9/ext-emmet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.9/ext-beautify.min.js"></script>
 <script>
-    
-    var editor = ace.edit("editor");
+
+    let editor = ace.edit("editor");
     editor.$blockScrolling = 1
     editor.setOptions({
         "enableEmmet": true,
@@ -38,6 +38,6 @@
     editor.on('change', function(e) {
         el.value = editor.getValue()
     })
-    
+
 </script>
 @endpush

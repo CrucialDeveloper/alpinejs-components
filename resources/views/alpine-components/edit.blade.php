@@ -12,7 +12,7 @@
         @method('PATCH')
 
         <div class="flex items-center">
-            <label for="title"
+            <label for="summary"
                 class="w-32 font-bold text-right min-w-32">Summary</label>
             <input type="text"
                 name="summary"
