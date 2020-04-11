@@ -4,27 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Component;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ComponentController extends Controller
 {
+    /**
+     * @param Request $request
+     */
     public function store(Request $request)
     {
         $this->validateRequest($request);
 
         $component = Component::make($request->all());
-        $component->slug = Str::slug($request->slug);
+        $component->slug = Str::slug($request->summary);
         $component->approve_at = Carbon::now();
 
         auth()->user()->components()->save($component);
     }
 
     /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Component $component
+     * @return Factory|View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Request $request, Component $component)
     {
