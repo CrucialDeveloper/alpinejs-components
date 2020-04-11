@@ -61,13 +61,18 @@
                 </div>
             </div>
         </div>
-        <div class="p-4 bg-white rounded min-w-64">
-            <h4 class="text-xl font-bold tracking-tighter text-gray-600">Categories</h4>
-            @foreach($facets as $facet=>$count)
-            <button
-                class="block ml-4 mt-2 p-2 hover:underline {{collect($activeCategories)->contains($facet) ? 'bg-gray-600 text-white rounded': 'text-gray-500'}}"
-                wire:click="updateActiveCategories('{{$facet}}')">{{$facet}} ({{$count}})</button>
-            @endforeach
+        <div>
+            <div>
+                <a href="/components/create" class="bg-blue-700 rounded text-white p-2 border border-transparent w-full hover:bg-blue-800">Submit a New Component</a>
+            </div>
+            <div class="p-4 bg-white rounded min-w-64 mt-8">
+                <h4 class="text-xl font-bold tracking-tighter text-gray-600">Categories</h4>
+                @foreach($facets as $facet=>$count)
+                    <button
+                        class="block ml-4 mt-2 p-2 hover:underline {{collect($activeCategories)->contains($facet) ? 'bg-gray-600 text-white rounded': 'text-gray-500'}}"
+                        wire:click="updateActiveCategories('{{$facet}}')">{{$facet}} ({{$count}})</button>
+                @endforeach
+            </div>
         </div>
     </div>
 
