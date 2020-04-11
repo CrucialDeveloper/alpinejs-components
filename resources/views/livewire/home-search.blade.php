@@ -1,6 +1,6 @@
 <div class="container py-8 mx-auto">
     <div class="flex items-start">
-        <div class="{{$components->count() ===0 ? 'mr-auto w-full' : 'mr-8'}}">
+        <div class="{{$components->count() ===0 ? 'mr-auto w-full' : 'mr-8 w-full'}}">
             <div class="flex items-center {{$components->count() ===0 ? 'mr-8' : ''}}">
                 <input type="text"
                     class="w-full p-2 rounded-l"
@@ -20,10 +20,10 @@
                     @foreach ($components as $component)
                     <div
                         class="w-full p-4 mt-8 bg-white border-4 border-transparent rounded shadow-md hover:border-blue-800">
-                        <div class="mb-2">
+                        <div>
                             {{$component->summary}}
                         </div>
-                        <span class="px-2 py-1 text-xs bg-gray-200 rounded ">{{$component->category}}</span>
+                        <div class="inline-block px-2 py-1 mt-1 text-xs bg-gray-200 rounded">{{$component->category}}</div>
                         <div class="mt-4 text-sm ">
                             {{$component->description}}
                         </div>

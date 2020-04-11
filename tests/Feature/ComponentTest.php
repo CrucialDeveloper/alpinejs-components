@@ -114,7 +114,6 @@ class ComponentTest extends TestCase
         ]);
     }
 
-
     /**
      * @test
      */
@@ -178,5 +177,23 @@ class ComponentTest extends TestCase
         $response = $this->get("/components/$component->slug");
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function a_component_has_an_edit_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = $this->signIn();
+
+        $component = $this->create(Component::class, ['user_id' => $user->id]);
+
+        $response = $this->get("/components/$component->slug/edit");
+
+        $response->assertStatus(200);
+        $response->assertViewIs('alpine-components.edit');
+        $response->assertViewHas('component');
     }
 }

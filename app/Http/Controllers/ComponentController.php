@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Component;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,30 @@ class ComponentController extends Controller
 
         $component = Component::make($request->all());
         $component->slug = Str::slug($request->slug);
+        $component->approve_at = Carbon::now();
 
         auth()->user()->components()->save($component);
+    }
+
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Component $component)
+    {
+        $this->authorize('preview', $component);
+        return view('alpine-components.show', [
+            'component' => $component->load('creator')
+        ]);
+    }
+
+    public function edit(Component $component)
+    {
+        return view('alpine-components.edit', [
+            'component' => $component
+        ]);
     }
 
     public function update(Request $request, Component $component)
@@ -25,8 +48,9 @@ class ComponentController extends Controller
         $this->validateRequest($request);
         $component->fill($request->all());
         $component->slug = Str::slug($request->summary);
-
         $component->save();
+
+        return redirect("/components/$component->slug");
     }
 
     public function validateRequest($request)

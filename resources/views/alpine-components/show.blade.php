@@ -14,7 +14,7 @@
             x-init="setHighlight()">
             <div class="flex items-center justify-between">
                 <div class="flex items-center mr-8">
-                    <button class="w-6 h-6 text-gray-200 ">
+                    {{-- <button class="w-6 h-6 text-gray-200 ">
                         <svg class="fill-current"
                             viewBox="0 0 20 20"
                             version="1.1"
@@ -30,9 +30,9 @@
                                 </g>
                             </g>
                         </svg>
-                    </button>
+                    </button> --}}
                     @can('update', $component)
-                    <a class="w-6 h-6 ml-4 text-gray-200 rounded "
+                    <a class="w-6 h-6 text-gray-200 rounded "
                         href="/components/{{$component->slug}}/edit">
                         <svg class="fill-current"
                             viewBox="0 0 20 20"
@@ -62,20 +62,23 @@
                         x-on:click="setMode('#code')">Show Code</button>
                 </div>
             </div>
-            <div class="mt-4 bg-gray-700 rounded min-h-xl"
-                x-show="mode != '#code'">
-                <div
-                    class="relative max-w-full p-4 overflow-scroll bg-gray-200 border rounded resize-x resizer h-xl min-w-xs">
-                    <iframe class="absolute top-0 left-0 w-full h-full rounded"
-                        srcdoc="{{$component->code}}"
-                        sandbox="allow-scripts allow-modals allow-same-origin">
-                    </iframe>
+            <div x-show="mode != '#code'">
+
+                <div class="mt-4 bg-gray-700 rounded min-h-xl">
+                    <div
+                        class="relative max-w-full p-4 overflow-scroll bg-gray-200 border rounded resize-x resizer h-xl min-w-xs">
+                        <iframe class="absolute top-0 left-0 w-full h-full rounded"
+                            srcdoc="{{$component->code}}"
+                            sandbox="allow-scripts allow-modals allow-same-origin">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-1 text-sm font-semibold handle">Resize the component using this handle &uarr;
                 </div>
             </div>
             <div class="mt-4"
                 x-show="mode === '#code'">
                 <pre><code class="rounded">{{$component->code}}</code></pre>
-
             </div>
 
         </div>
@@ -91,10 +94,10 @@
 @push('scripts')
 <script>
     let iframe = document.querySelector('iframe')
-    iframe.addEventListener('load', function() {
+    iframe.addEventListener('load', function () {
         let tags = iframe.contentDocument.querySelectorAll('a')
-        tags.forEach(tag=>{
-            tag.addEventListener('click', function(e){
+        tags.forEach(tag => {
+            tag.addEventListener('click', function (e) {
                 e.preventDefault()
             })
         })
@@ -103,23 +106,33 @@
 
 <script>
     function iframeComponent() {
-     return {
-         mode: window.location.hash,
-         setMode(str) {
-             window.location.hash = str
-             this.mode = str
+        return {
+            mode: window.location.hash,
+            setMode(str) {
+                window.location.hash = str
+                this.mode = str
 
-             if(str === "#code") {
-                 this.setHighlight()
-             }
-         },
-         setHighlight() {
-             document.querySelectorAll('code').forEach((block) => {
-            hljs.highlightBlock(block);
-            });
-         }
-     }
- }
+                if (str === "#code") {
+                    this.setHighlight()
+                }
+            },
+            setHighlight() {
+                document.querySelectorAll('code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            }
+        }
+    }
+</script>
+
+<script>
+    let el =document.querySelector('.handle')
+    function resizeHandle(e) {
+        el.style.width = e[0].target.clientWidth +"px"
+    } 
+    
+    new ResizeObserver(resizeHandle).observe(document.querySelector('.resizer'))
+
 </script>
 @endpush
 

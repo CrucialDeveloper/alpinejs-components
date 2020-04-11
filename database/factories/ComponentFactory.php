@@ -16,7 +16,7 @@ $factory->define(Component::class, function (Faker $faker) {
         'description' => $faker->paragraph(5),
         'code' => '<h1>Hello World</h1>',
         'category' => $faker->randomElement(['Navigation', 'Inputs', 'UI']),
-        'approved_at' => $faker->boolean ? Carbon::yesterday() : null,
+        'approved_at' => Carbon::yesterday(),
         'slug' => Str::slug($summary)
     ];
 });
