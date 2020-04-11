@@ -20,7 +20,7 @@ class ComponentController extends Controller
 
         $component = Component::make($request->all());
         $component->slug = Str::slug($request->summary);
-        $component->approve_at = Carbon::now();
+        $component->approved_at = Carbon::now();
 
         auth()->user()->components()->save($component);
     }
