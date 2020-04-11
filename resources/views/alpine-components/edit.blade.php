@@ -54,7 +54,7 @@
             <x-code-editor :component="$component"
                 field="code"></x-code-editor>
         </div>
-
+        
         <div class="flex items-center justify-end w-full mt-4">
         <a href="/components/{{$component->slug}}" class="mr-8 text-gray-500 hover:underline">Cancel</a>
             <button type="submit"
