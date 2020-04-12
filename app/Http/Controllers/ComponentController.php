@@ -11,6 +11,9 @@ use Illuminate\View\View;
 
 class ComponentController extends Controller
 {
+    /**
+     * @return Factory|View
+     */
     public function create()
     {
         return view('alpine-components.create');
@@ -19,6 +22,7 @@ class ComponentController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {

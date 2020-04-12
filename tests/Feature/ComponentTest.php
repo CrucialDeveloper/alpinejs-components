@@ -52,7 +52,7 @@ class ComponentTest extends TestCase
     public function component_summaries_must_be_unique()
     {
 
-        $user  = $this->signIn();
+        $user = $this->signIn();
         $first = $this->create(Component::class, [
             'user_id' => $user->id,
             'summary' => 'First Component',
