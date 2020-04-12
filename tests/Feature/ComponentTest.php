@@ -201,14 +201,60 @@ class ComponentTest extends TestCase
     /**
      * @test
      */
-    public function a_component_is_created_on_a_create_page()
+    public function authenticated_users_can_create_components_on_a_create_page()
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->get('/components/create');
+        $user = $this->signIn();
+        $response = $this->actingAs($user)->get('/components/create');
 
         $response->assertStatus(200);
 
         $response->assertViewIs('alpine-components.create');
+    }
+
+    /**
+     * @test
+     */
+    public function guest_users_cannot_get_to_the_create_components_page()
+    {
+
+        $response = $this->get('/components/create');
+
+        $response->assertStatus(302);
+
+        $response->assertLocation('/login');
+
+    }
+
+    /**
+     * @test
+     */
+    public function a_component_can_be_deleted()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = $this->signIn();
+        $component = $this->create(Component::class, ['user_id' => $user->id]);
+
+        $this->assertCount(1, Component::all());
+        $this->actingAs($user)->delete("/components/$component->slug");
+        $this->assertCount(0, Component::all());
+
+    }
+
+    /**
+     * @test
+     */
+    public function non_authorize_users_cannot_delete_components()
+    {
+
+        $component = $this->create(Component::class);
+        $user1 = $this->create(User::class);
+        $this->assertCount(1, Component::all());
+        $user2 = $this->signIn();
+        $response = $this->actingAs($user2)->delete("/components/$component->slug");
+        $this->assertCount(1, Component::all());
+        $response->assertStatus(403);
     }
 }

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ComponentController extends Controller
@@ -62,7 +63,7 @@ class ComponentController extends Controller
     {
         $this->authorize('update', $component);
 
-        $this->validateRequest($request);
+        $this->validateRequest($request, $component);
         $component->fill($request->all());
         $component->slug = Str::slug($request->summary);
         $component->save();
@@ -70,10 +71,19 @@ class ComponentController extends Controller
         return redirect("/components/$component->slug");
     }
 
-    public function validateRequest($request)
+    public function destroy(Component $component)
+    {
+        $this->authorize('delete', $component);
+
+        $component->delete();
+
+        return redirect('/components');
+    }
+
+    public function validateRequest($request, $component = [])
     {
         $request->validate([
-            'summary' => 'required|unique:components',
+            'summary' => ['required', Rule::unique('components', 'summary')->ignore($component)],
             'description' => 'required',
             'code' => 'required',
         ]);

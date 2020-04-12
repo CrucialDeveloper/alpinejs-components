@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index');
-Route::get('/components/create', 'ComponentController@create');
+Route::get('/components/create', 'ComponentController@create')->middleware('auth', 'verified');
 Route::get('/components/{component:slug}', 'ComponentController@show');
 Route::get('/components/{component:slug}/edit', 'ComponentController@edit')->middleware('can:update,component');
 Route::post('/components', 'ComponentController@store')->middleware('verified', 'auth');
 Route::patch('/components/{component:slug}', 'ComponentController@update')->middleware('verified', 'auth');
+Route::delete('/components/{component:slug}', 'ComponentController@destroy');
