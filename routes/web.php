@@ -23,3 +23,8 @@ Route::get('/components/{component:slug}/edit', 'ComponentController@edit')->mid
 Route::post('/components', 'ComponentController@store')->middleware('verified', 'auth');
 Route::patch('/components/{component:slug}', 'ComponentController@update')->middleware('verified', 'auth');
 Route::delete('/components/{component:slug}', 'ComponentController@destroy');
+
+
+Route::get('/wip/tags', function () {
+    return view('wip.tags');
+});
